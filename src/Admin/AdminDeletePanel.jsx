@@ -3,11 +3,19 @@ import axios from "axios";
 
 const api = axios.create({
   baseURL: "https://studyhubapi-e2lb.onrender.com",
-    withCredentials: true,
-      headers: {
-        "Content-Type": "application/json",
-        Authorization: `Bearer ${localStorage.getItem("token")}`,
-      },
+  withCredentials: true,
+  headers: {
+    "Content-Type": "application/json",
+  },
+});
+
+// 👇 interceptor add करो
+api.interceptors.request.use((config) => {
+  const token = localStorage.getItem("token");
+  if (token) {
+    config.headers.Authorization = `Bearer ${token}`;
+  }
+  return config;
 });
 
 const PENDING_DELETES_KEY = "pendingDeletes";
