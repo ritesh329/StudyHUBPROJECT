@@ -2,16 +2,60 @@ import { useState } from "react";
 import axios from "axios";
 import { toast } from "react-toastify";
  
-const token=localStorage.getItem("token");
+
+
+
+const token = localStorage.getItem("token");
 
 const api = axios.create({
   baseURL: "https://studyhubapi-e2lb.onrender.com/it-category",
-   withCredentials: true,
-      headers: {
-        "Content-Type": "application/json",
-        Authorization: `Bearer ${localStorage.getItem("token") || token}`,
-      },
+  withCredentials: true,
+  headers: {
+    "Content-Type": "application/json",
+  },
 });
+
+
+// 🔥 REQUEST INTERCEPTOR
+api.interceptors.request.use(
+  (config) => {
+    const token = localStorage.getItem("token");
+
+    if (token) {
+      config.headers.Authorization = `Bearer ${token}`;
+    }
+
+    // loader start
+    document.body.classList.add("loading");
+
+    return config;
+  },
+  (error) => {
+    document.body.classList.remove("loading");
+    return Promise.reject(error);
+  }
+);
+
+
+// 🔥 RESPONSE INTERCEPTOR
+api.interceptors.response.use(
+  (response) => {
+    // loader stop
+    document.body.classList.remove("loading");
+    return response;
+  },
+  (error) => {
+    document.body.classList.remove("loading");
+
+    if (error?.response?.status === 401) {
+      localStorage.removeItem("token");
+      window.location.href = "/login";
+    }
+
+    return Promise.reject(error);
+  }
+);
+
 
 export default function CreateCategory() {
   const [name, setName] = useState("");

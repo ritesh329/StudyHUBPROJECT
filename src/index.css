@@ -1,3 +1,960 @@
+/* index.css or App.css - Ultra Premium Theme with CKEditor Support */
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+/* RESET */
+body {
+  margin: 0;
+  padding: 0;
+  font-family: "Poppins", sans-serif;
+  transition: background 0.4s ease, color 0.3s ease;
+  overflow-x: hidden;
+  overflow-y: auto !important;
+  height: auto !important;
+  min-height: 100vh !important;
+}
+
+/* Ensure proper scrolling on all pages */
+html {
+  overflow-y: auto !important;
+  scroll-behavior: smooth;
+  height: 100% !important;
+}
+
+/* 🌞 LIGHT THEME - Ultra Premium with Luxury Effects */
+body.light {
+  background: linear-gradient(
+      135deg,
+      rgba(255, 245, 240, 0.98),
+      rgba(255, 235, 225, 0.96),
+      rgba(250, 240, 255, 0.94),
+      rgba(230, 245, 255, 0.92)
+    ),
+    url('/images/backgroundimg.jpeg') !important;
+  background-size: cover !important;
+  background-position: center !important;
+  background-attachment: fixed !important;
+  color: #1e1b2f !important;
+  position: relative;
+  min-height: 100vh !important;
+  height: auto !important;
+}
+
+/* Animated gradient overlay for light mode */
+body.light::before {
+  content: '';
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: radial-gradient(circle at 30% 40%, rgba(255, 180, 120, 0.2), rgba(255, 140, 100, 0.1), rgba(180, 150, 255, 0.05));
+  pointer-events: none;
+  z-index: 0;
+  animation: lightGlow 10s ease-in-out infinite;
+}
+
+@keyframes lightGlow {
+  0%, 100% {
+    opacity: 0.4;
+    transform: scale(1);
+  }
+  50% {
+    opacity: 0.8;
+    transform: scale(1.05);
+  }
+}
+
+/* Floating particles for light mode */
+body.light::after {
+  content: '';
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-image: radial-gradient(circle at 20% 50%, rgba(255, 200, 150, 0.08) 2px, transparent 2px);
+  background-size: 40px 40px;
+  pointer-events: none;
+  z-index: 0;
+  animation: particleFloat 20s linear infinite;
+}
+
+@keyframes particleFloat {
+  0% {
+    background-position: 0 0;
+  }
+  100% {
+    background-position: 100px 100px;
+  }
+}
+
+/* 🌙 DARK THEME - Ultra Premium with Glow Effects */
+body.dark {
+  background: linear-gradient(
+      135deg,
+      rgba(2, 6, 23, 0.98),
+      rgba(15, 25, 45, 0.98),
+      rgba(0, 20, 40, 0.98)
+    ),
+    url("https://images.unsplash.com/photo-1519389950473-47ba0277781c?w=1920&q=80") !important;
+  background-size: cover !important;
+  background-position: center !important;
+  background-attachment: fixed !important;
+  color: #f1f5f9 !important;
+  position: relative;
+  min-height: 100vh !important;
+  height: auto !important;
+}
+
+/* Add animated gradient overlay for dark mode depth */
+body.dark::before {
+  content: '';
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: radial-gradient(circle at 50% 50%, rgba(59, 130, 246, 0.08), rgba(139, 92, 246, 0.05), transparent);
+  pointer-events: none;
+  z-index: 0;
+  animation: darkGlow 8s ease-in-out infinite;
+}
+
+@keyframes darkGlow {
+  0%, 100% {
+    opacity: 0.5;
+  }
+  50% {
+    opacity: 1;
+  }
+}
+
+/* Smooth animation */
+body {
+  transition: all 0.4s ease-in-out;
+}
+
+/* 🔥 IMPORTANT: Force text colors for all elements in light mode - Premium Dark Text */
+body.light,
+body.light *,
+body.light .text-gray-800,
+body.light .text-gray-700,
+body.light .text-gray-900,
+body.light h1,
+body.light h2,
+body.light h3,
+body.light h4,
+body.light h5,
+body.light h6,
+body.light p,
+body.light span,
+body.light div:not(.keep-bg) {
+  color: #1e1b2f !important;
+}
+
+/* Dark mode text colors with better contrast */
+body.dark,
+body.dark *,
+body.dark .text-gray-800,
+body.dark .text-gray-700,
+body.dark .text-gray-900,
+body.dark h1,
+body.dark h2,
+body.dark h3,
+body.dark h4,
+body.dark h5,
+body.dark h6,
+body.dark p,
+body.dark span,
+body.dark div:not(.keep-bg),
+body.dark button:not(.theme-toggle),
+body.dark a {
+  color: #f1f5f9 !important;
+}
+
+/* Preserve specific element colors (buttons, links, etc.) */
+body.dark button,
+body.dark a {
+  color: inherit !important;
+}
+
+body.light button,
+body.light a {
+  color: inherit !important;
+}
+
+/* Enhanced Placeholder text */
+body.light ::placeholder,
+body.light input::placeholder,
+body.light textarea::placeholder {
+  color: #a8a6c0 !important;
+  opacity: 0.8 !important;
+}
+
+body.dark ::placeholder,
+body.dark input::placeholder,
+body.dark textarea::placeholder {
+  color: #94a3b8 !important;
+  opacity: 0.7 !important;
+}
+
+/* Premium Input fields for light mode - Glassmorphic with Luxury */
+body.light input,
+body.light textarea,
+body.light select {
+  background: rgba(255, 255, 255, 0.7) !important;
+  backdrop-filter: blur(10px) !important;
+  border: 2px solid rgba(249, 115, 22, 0.2) !important;
+  color: #1e1b2f !important;
+  border-radius: 16px !important;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1) !important;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.02) !important;
+}
+
+body.light input:hover,
+body.light textarea:hover,
+body.light select:hover {
+  border-color: rgba(249, 115, 22, 0.5) !important;
+  background: rgba(255, 255, 255, 0.85) !important;
+  transform: translateY(-1px) !important;
+}
+
+body.light input:focus,
+body.light textarea:focus,
+body.light select:focus {
+  border-color: #f97316 !important;
+  outline: none !important;
+  box-shadow: 0 0 0 4px rgba(249, 115, 22, 0.15), 0 0 20px rgba(249, 115, 22, 0.1) !important;
+  background: rgba(255, 255, 255, 0.95) !important;
+  transform: scale(1.01) !important;
+}
+
+/* Enhanced Input fields for dark mode - Glassmorphic */
+body.dark input,
+body.dark textarea,
+body.dark select {
+  background: rgba(15, 23, 42, 0.7) !important;
+  backdrop-filter: blur(10px) !important;
+  border: 1px solid rgba(59, 130, 246, 0.3) !important;
+  color: #f1f5f9 !important;
+  border-radius: 14px !important;
+  transition: all 0.3s ease !important;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1) !important;
+}
+
+body.dark input:hover,
+body.dark textarea:hover,
+body.dark select:hover {
+  border-color: rgba(59, 130, 246, 0.6) !important;
+  background: rgba(15, 23, 42, 0.85) !important;
+}
+
+body.dark input:focus,
+body.dark textarea:focus,
+body.dark select:focus {
+  border-color: #3b82f6 !important;
+  outline: none !important;
+  box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.3), 0 0 15px rgba(59, 130, 246, 0.2) !important;
+  background: rgba(15, 23, 42, 0.9) !important;
+  transform: scale(1.01) !important;
+}
+
+/* Premium Card backgrounds for light mode - Luxury Glass with Animation */
+body.light .card,
+body.light [class*="bg-white"],
+body.light [class*="bg-gray-100"],
+body.light [class*="bg-gray-50"] {
+  background: linear-gradient(135deg, rgba(255, 255, 255, 0.8), rgba(255, 248, 245, 0.7)) !important;
+  backdrop-filter: blur(12px) !important;
+  border: 1px solid rgba(255, 255, 255, 0.9) !important;
+  border-radius: 28px !important;
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.06), 0 0 0 1px rgba(249, 115, 22, 0.05) !important;
+  transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1) !important;
+  position: relative !important;
+  overflow: hidden !important;
+}
+
+/* Shine effect on cards */
+body.light .card::before,
+body.light [class*="bg-white"]::before {
+  content: '' !important;
+  position: absolute !important;
+  top: 0 !important;
+  left: -100% !important;
+  width: 100% !important;
+  height: 100% !important;
+  background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.4), transparent) !important;
+  transition: left 0.6s ease !important;
+  pointer-events: none !important;
+}
+
+body.light .card:hover::before,
+body.light [class*="bg-white"]:hover::before {
+  left: 100% !important;
+}
+
+body.light .card:hover,
+body.light [class*="bg-white"]:hover {
+  background: rgba(255, 255, 255, 0.9) !important;
+  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.12), 0 0 0 1px rgba(249, 115, 22, 0.2) !important;
+  transform: translateY(-6px) scale(1.01) !important;
+}
+
+/* Enhanced Card backgrounds for dark mode - Premium Glass with Glow */
+body.dark .card,
+body.dark [class*="bg-white"],
+body.dark [class*="bg-gray-100"],
+body.dark [class*="bg-gray-50"] {
+  background: rgba(15, 25, 45, 0.6) !important;
+  backdrop-filter: blur(12px) !important;
+  border: 1px solid rgba(59, 130, 246, 0.2) !important;
+  border-radius: 24px !important;
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3), 0 0 0 1px rgba(59, 130, 246, 0.1) !important;
+  transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1) !important;
+}
+
+body.dark .card:hover,
+body.dark [class*="bg-white"]:hover {
+  background: rgba(20, 35, 60, 0.75) !important;
+  border-color: rgba(59, 130, 246, 0.5) !important;
+  box-shadow: 0 12px 48px rgba(0, 0, 0, 0.4), 0 0 20px rgba(59, 130, 246, 0.2) !important;
+  transform: translateY(-4px) !important;
+}
+
+/* Enhanced Glass Morphism for light mode */
+body.light .glass-card {
+  background: linear-gradient(135deg, rgba(255, 255, 255, 0.85), rgba(255, 248, 245, 0.75)) !important;
+  backdrop-filter: blur(16px) !important;
+  border: 1px solid rgba(255, 255, 255, 0.95) !important;
+  border-radius: 28px !important;
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.08) !important;
+  transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1) !important;
+}
+
+body.light .glass-card:hover {
+  background: rgba(255, 255, 255, 0.95) !important;
+  box-shadow: 0 20px 48px rgba(0, 0, 0, 0.12), 0 0 0 1px rgba(249, 115, 22, 0.2) !important;
+  transform: translateY(-5px) scale(1.01) !important;
+}
+
+body.dark .glass-card {
+  background: linear-gradient(135deg, rgba(15, 25, 45, 0.7), rgba(10, 20, 35, 0.6)) !important;
+  border: 1px solid rgba(59, 130, 246, 0.3) !important;
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3) !important;
+}
+
+body.dark .glass-card:hover {
+  background: rgba(20, 35, 55, 0.8) !important;
+  border-color: rgba(59, 130, 246, 0.6) !important;
+  box-shadow: 0 12px 48px rgba(0, 0, 0, 0.4), 0 0 15px rgba(59, 130, 246, 0.2) !important;
+  transform: translateY(-3px) !important;
+}
+
+/* Premium Theme Toggle Button - Enhanced */
+.theme-toggle-btn {
+  position: fixed !important;
+  top: 20px !important;
+  right: 20px !important;
+  z-index: 9999 !important;
+  display: flex !important;
+  align-items: center !important;
+  gap: 12px !important;
+  padding: 12px 24px !important;
+  border-radius: 60px !important;
+  font-weight: 600 !important;
+  cursor: pointer !important;
+  transition: all 0.4s cubic-bezier(0.34, 1.2, 0.64, 1) !important;
+  backdrop-filter: blur(16px) !important;
+  border: none !important;
+  letter-spacing: 0.3px !important;
+  animation: floatButton 3s ease-in-out infinite !important;
+}
+
+@keyframes floatButton {
+  0%, 100% {
+    transform: translateY(0px);
+  }
+  50% {
+    transform: translateY(-5px);
+  }
+}
+
+body.light .theme-toggle-btn {
+  background: linear-gradient(135deg, rgba(255, 255, 255, 0.98), rgba(255, 245, 235, 0.98)) !important;
+  color: #f97316 !important;
+  border: 1px solid rgba(249, 115, 22, 0.4) !important;
+  box-shadow: 0 8px 32px rgba(249, 115, 22, 0.25) !important;
+}
+
+body.dark .theme-toggle-btn {
+  background: linear-gradient(135deg, rgba(30, 41, 59, 0.95), rgba(15, 23, 42, 0.95)) !important;
+  color: #60a5fa !important;
+  border: 1px solid rgba(96, 165, 250, 0.4) !important;
+  box-shadow: 0 4px 20px rgba(59, 130, 246, 0.3) !important;
+}
+
+.theme-toggle-btn:hover {
+  transform: scale(1.08) translateY(-3px) !important;
+  box-shadow: 0 12px 40px rgba(0, 0, 0, 0.3) !important;
+}
+
+.theme-toggle-btn:active {
+  transform: scale(0.96) !important;
+}
+
+/* Premium Link styles for light mode */
+body.light a:not(.theme-toggle-btn) {
+  background: linear-gradient(120deg, #f97316, #fb923c) !important;
+  background-clip: text !important;
+  -webkit-background-clip: text !important;
+  color: transparent !important;
+  transition: all 0.3s ease !important;
+  text-decoration: none !important;
+  font-weight: 600 !important;
+  position: relative !important;
+}
+
+body.light a:not(.theme-toggle-btn)::after {
+  content: '' !important;
+  position: absolute !important;
+  bottom: -2px !important;
+  left: 0 !important;
+  width: 0 !important;
+  height: 2px !important;
+  background: linear-gradient(90deg, #f97316, #fb923c) !important;
+  transition: width 0.3s ease !important;
+}
+
+body.light a:not(.theme-toggle-btn):hover::after {
+  width: 100% !important;
+}
+
+body.light a:not(.theme-toggle-btn):hover {
+  transform: translateX(4px) !important;
+  text-shadow: 0 0 8px rgba(249, 115, 22, 0.3) !important;
+}
+
+/* Dark mode links */
+body.dark a:not(.theme-toggle-btn) {
+  color: #60a5fa !important;
+  transition: all 0.3s ease !important;
+  text-decoration: none !important;
+  font-weight: 500 !important;
+  position: relative !important;
+}
+
+body.dark a:not(.theme-toggle-btn):hover {
+  color: #93c5fd !important;
+  text-shadow: 0 0 8px rgba(96, 165, 250, 0.5) !important;
+  transform: translateX(3px) !important;
+}
+
+/* Premium Button styles for light mode - Luxury Gradient */
+body.light button:not(.theme-toggle-btn) {
+  background: linear-gradient(135deg, #f97316, #ea580c, #fdba74) !important;
+  background-size: 200% 200% !important;
+  color: white !important;
+  border: none !important;
+  padding: 12px 28px !important;
+  border-radius: 16px !important;
+  font-weight: 600 !important;
+  transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1) !important;
+  cursor: pointer !important;
+  box-shadow: 0 4px 15px rgba(249, 115, 22, 0.3) !important;
+  position: relative !important;
+  overflow: hidden !important;
+  animation: gradientShift 3s ease infinite !important;
+}
+
+@keyframes gradientShift {
+  0%, 100% {
+    background-position: 0% 50%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
+}
+
+body.light button:not(.theme-toggle-btn)::before {
+  content: '' !important;
+  position: absolute !important;
+  top: 0 !important;
+  left: -100% !important;
+  width: 100% !important;
+  height: 100% !important;
+  background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.3), transparent) !important;
+  transition: left 0.5s ease !important;
+}
+
+body.light button:not(.theme-toggle-btn):hover::before {
+  left: 100% !important;
+}
+
+body.light button:not(.theme-toggle-btn):hover {
+  transform: translateY(-3px) !important;
+  box-shadow: 0 8px 25px rgba(249, 115, 22, 0.5) !important;
+}
+
+body.light button:not(.theme-toggle-btn):active {
+  transform: translateY(0px) !important;
+}
+
+/* Enhanced Button styles for dark mode - Premium Gradient Buttons */
+body.dark button:not(.theme-toggle-btn) {
+  background: linear-gradient(135deg, #3b82f6, #8b5cf6) !important;
+  color: white !important;
+  border: none !important;
+  padding: 12px 28px !important;
+  border-radius: 14px !important;
+  font-weight: 600 !important;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1) !important;
+  cursor: pointer !important;
+  box-shadow: 0 4px 15px rgba(59, 130, 246, 0.3) !important;
+  position: relative !important;
+  overflow: hidden !important;
+}
+
+body.dark button:not(.theme-toggle-btn)::before {
+  content: '' !important;
+  position: absolute !important;
+  top: 0 !important;
+  left: -100% !important;
+  width: 100% !important;
+  height: 100% !important;
+  background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent) !important;
+  transition: left 0.5s ease !important;
+}
+
+body.dark button:not(.theme-toggle-btn):hover::before {
+  left: 100% !important;
+}
+
+body.dark button:not(.theme-toggle-btn):hover {
+  transform: translateY(-3px) !important;
+  box-shadow: 0 8px 25px rgba(59, 130, 246, 0.5) !important;
+  background: linear-gradient(135deg, #2563eb, #7c3aed) !important;
+}
+
+body.dark button:not(.theme-toggle-btn):active {
+  transform: translateY(0px) !important;
+}
+
+/* Secondary button style for light mode */
+body.light .btn-secondary {
+  background: rgba(255, 255, 255, 0.8) !important;
+  backdrop-filter: blur(10px) !important;
+  border: 2px solid rgba(249, 115, 22, 0.3) !important;
+  color: #f97316 !important;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05) !important;
+}
+
+body.light .btn-secondary:hover {
+  background: rgba(255, 255, 255, 0.95) !important;
+  border-color: rgba(249, 115, 22, 0.6) !important;
+  box-shadow: 0 4px 20px rgba(249, 115, 22, 0.15) !important;
+}
+
+/* ==================== SCROLLBAR FIXES - LIGHT MODE ==================== */
+/* Light mode scrollbar - Ensure visibility on all pages including admin */
+body.light {
+  scrollbar-width: thin !important;
+  scrollbar-color: #f97316 #ffe8e0 !important;
+}
+
+body.light::-webkit-scrollbar {
+  width: 12px !important;
+  height: 12px !important;
+  display: block !important;
+  visibility: visible !important;
+  opacity: 1 !important;
+}
+
+body.light::-webkit-scrollbar-track {
+  background: linear-gradient(135deg, #fff5f0, #ffe8e0) !important;
+  border-radius: 10px !important;
+  display: block !important;
+}
+
+body.light::-webkit-scrollbar-thumb {
+  background: linear-gradient(135deg, #f97316, #fb923c, #fdba74) !important;
+  border-radius: 10px !important;
+  transition: all 0.3s ease !important;
+  display: block !important;
+}
+
+body.light::-webkit-scrollbar-thumb:hover {
+  background: linear-gradient(135deg, #ea580c, #f97316) !important;
+}
+
+/* Dark mode scrollbar */
+body.dark {
+  scrollbar-width: thin !important;
+  scrollbar-color: #3b82f6 #1e293b !important;
+}
+
+body.dark::-webkit-scrollbar {
+  width: 12px !important;
+  height: 12px !important;
+  display: block !important;
+  visibility: visible !important;
+  opacity: 1 !important;
+}
+
+body.dark::-webkit-scrollbar-track {
+  background: linear-gradient(135deg, #0f172a, #1e293b) !important;
+  border-radius: 10px !important;
+  display: block !important;
+}
+
+body.dark::-webkit-scrollbar-thumb {
+  background: linear-gradient(135deg, #3b82f6, #8b5cf6) !important;
+  border-radius: 10px !important;
+  transition: all 0.3s ease !important;
+  display: block !important;
+}
+
+body.dark::-webkit-scrollbar-thumb:hover {
+  background: linear-gradient(135deg, #2563eb, #7c3aed) !important;
+}
+
+/* Force scrollbar visibility on all elements */
+* {
+  scrollbar-width: thin !important;
+}
+
+/* Ensure admin containers have scroll */
+.admin-container,
+.admin-panel,
+[class*="admin"],
+[class*="Admin"],
+.max-w-4xl,
+.max-w-6xl,
+.container {
+  overflow-y: auto !important;
+  overflow-x: auto !important;
+  min-height: 100vh !important;
+  height: auto !important;
+}
+
+/* Fix for main content area */
+main, 
+#root > div,
+.app-container {
+  overflow-y: auto !important;
+  min-height: 100vh !important;
+  height: auto !important;
+}
+
+/* ==================== CKEDITOR DARK MODE SUPPORT ==================== */
+/* CKEditor Global Styles */
+.ck.ck-editor__editable_inline {
+  min-height: 300px !important;
+  transition: all 0.3s ease !important;
+  overflow-y: auto !important;
+}
+
+/* Light mode CKEditor */
+body.light .ck.ck-editor__editable_inline {
+  background-color: rgba(255, 255, 255, 0.95) !important;
+  color: #1e1b2f !important;
+  border-color: rgba(249, 115, 22, 0.3) !important;
+}
+
+body.light .ck.ck-toolbar {
+  background-color: rgba(255, 245, 240, 0.95) !important;
+  border-color: rgba(249, 115, 22, 0.2) !important;
+}
+
+body.light .ck.ck-button {
+  color: #1e1b2f !important;
+}
+
+body.light .ck.ck-button:hover {
+  background-color: rgba(249, 115, 22, 0.1) !important;
+}
+
+body.light .ck.ck-button.ck-on {
+  background-color: rgba(249, 115, 22, 0.2) !important;
+  color: #f97316 !important;
+}
+
+/* Dark mode CKEditor */
+body.dark .ck.ck-editor__editable_inline {
+  background-color: #1e293b !important;
+  color: #f1f5f9 !important;
+  border-color: rgba(59, 130, 246, 0.3) !important;
+}
+
+body.dark .ck.ck-toolbar {
+  background-color: #0f172a !important;
+  border-color: rgba(59, 130, 246, 0.2) !important;
+}
+
+body.dark .ck.ck-button {
+  color: #f1f5f9 !important;
+}
+
+body.dark .ck.ck-button:hover {
+  background-color: rgba(59, 130, 246, 0.2) !important;
+}
+
+body.dark .ck.ck-button.ck-on {
+  background-color: rgba(59, 130, 246, 0.3) !important;
+  color: #60a5fa !important;
+}
+
+body.dark .ck.ck-dropdown__panel {
+  background-color: #1e293b !important;
+  border-color: #334155 !important;
+}
+
+body.dark .ck.ck-list__item {
+  color: #f1f5f9 !important;
+}
+
+body.dark .ck.ck-list__item:hover {
+  background-color: #334155 !important;
+}
+
+/* CKEditor Content Styles - Light Mode */
+body.light .ck-content h1,
+body.light .ck-content h2,
+body.light .ck-content h3 {
+  color: #f97316 !important;
+}
+
+body.light .ck-content a {
+  color: #f97316 !important;
+}
+
+body.light .ck-content blockquote {
+  border-left-color: #f97316 !important;
+  background-color: rgba(249, 115, 22, 0.05) !important;
+}
+
+body.light .ck-content code {
+  background-color: rgba(0, 0, 0, 0.05) !important;
+  color: #f97316 !important;
+}
+
+body.light .ck-content pre {
+  background-color: rgba(0, 0, 0, 0.03) !important;
+  border-color: rgba(249, 115, 22, 0.2) !important;
+}
+
+/* CKEditor Content Styles - Dark Mode */
+body.dark .ck-content h1,
+body.dark .ck-content h2,
+body.dark .ck-content h3 {
+  color: #fbbf24 !important;
+}
+
+body.dark .ck-content a {
+  color: #60a5fa !important;
+}
+
+body.dark .ck-content blockquote {
+  border-left-color: #8b5cf6 !important;
+  background-color: rgba(139, 92, 246, 0.1) !important;
+}
+
+body.dark .ck-content code {
+  background-color: #334155 !important;
+  color: #fbbf24 !important;
+}
+
+body.dark .ck-content pre {
+  background-color: #0f172a !important;
+  border-color: #334155 !important;
+}
+
+body.dark .ck-content pre code {
+  color: #94a3b8 !important;
+}
+
+body.dark .ck-content table {
+  border-color: #334155 !important;
+}
+
+body.dark .ck-content table th,
+body.dark .ck-content table td {
+  border-color: #334155 !important;
+}
+
+body.dark .ck-content table th {
+  background-color: #334155 !important;
+}
+
+/* Ensure background images load properly */
+body {
+  background-repeat: no-repeat !important;
+  background-attachment: fixed !important;
+  min-height: 100vh !important;
+}
+
+/* Fix for Tailwind text color classes - Enhanced */
+body.light .text-gray-500,
+body.light .text-gray-600,
+body.light .text-gray-700,
+body.light .text-gray-800,
+body.light .text-gray-900 {
+  color: #1e1b2f !important;
+}
+
+body.dark .text-gray-500,
+body.dark .text-gray-600,
+body.dark .text-gray-700,
+body.dark .text-gray-800,
+body.dark .text-gray-900 {
+  color: #e2e8f0 !important;
+}
+
+/* Enhanced heading styles for light mode - Premium Gradient */
+body.light h1,
+body.light h2,
+body.light h3,
+body.light h4,
+body.light h5,
+body.light h6 {
+  background: linear-gradient(135deg, #f97316, #ea580c, #fb923c, #fdba74) !important;
+  background-size: 200% 200% !important;
+  -webkit-background-clip: text !important;
+  background-clip: text !important;
+  color: transparent !important;
+  font-weight: 800 !important;
+  animation: headingGradient 4s ease infinite !important;
+  letter-spacing: -0.02em !important;
+}
+
+@keyframes headingGradient {
+  0%, 100% {
+    background-position: 0% 50%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
+}
+
+/* Dark mode headings */
+body.dark h1,
+body.dark h2,
+body.dark h3,
+body.dark h4,
+body.dark h5,
+body.dark h6 {
+  background: linear-gradient(135deg, #60a5fa, #a78bfa, #c084fc) !important;
+  -webkit-background-clip: text !important;
+  background-clip: text !important;
+  color: transparent !important;
+  font-weight: 700 !important;
+  text-shadow: 0 2px 10px rgba(96, 165, 250, 0.2) !important;
+}
+
+/* Selection styling - Light mode premium */
+body.light ::selection {
+  background: linear-gradient(135deg, #f97316, #fb923c) !important;
+  color: white !important;
+}
+
+body.dark ::selection {
+  background: linear-gradient(135deg, #3b82f6, #8b5cf6) !important;
+  color: white !important;
+}
+
+/* Add glowing effect for important elements in light mode */
+body.light .glow-effect {
+  animation: lightGlowPulse 2s ease-in-out infinite !important;
+}
+
+@keyframes lightGlowPulse {
+  0%, 100% {
+    box-shadow: 0 0 5px rgba(249, 115, 22, 0.3);
+  }
+  50% {
+    box-shadow: 0 0 20px rgba(249, 115, 22, 0.6);
+  }
+}
+
+/* Modal/Dialog styling for light mode - Premium */
+body.light .modal,
+body.light dialog {
+  background: rgba(255, 255, 255, 0.95) !important;
+  backdrop-filter: blur(24px) !important;
+  border: 1px solid rgba(249, 115, 22, 0.3) !important;
+  border-radius: 32px !important;
+  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.15), 0 0 0 1px rgba(249, 115, 22, 0.1) !important;
+  color: #1e1b2f !important;
+  animation: modalFadeIn 0.4s cubic-bezier(0.4, 0, 0.2, 1) !important;
+}
+
+@keyframes modalFadeIn {
+  from {
+    opacity: 0;
+    transform: scale(0.95);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+/* Dark mode modal */
+body.dark .modal,
+body.dark dialog {
+  background: rgba(15, 23, 42, 0.95) !important;
+  backdrop-filter: blur(20px) !important;
+  border: 1px solid rgba(59, 130, 246, 0.3) !important;
+  border-radius: 24px !important;
+  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.5), 0 0 0 1px rgba(59, 130, 246, 0.2) !important;
+  color: #f1f5f9 !important;
+}
+
+/* Add bounce animation for cards in light mode */
+@keyframes cardBounce {
+  0%, 100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-5px);
+  }
+}
+
+body.light .animate-card {
+  animation: cardBounce 3s ease-in-out infinite !important;
+}
+
+/* Force scroll on all pages */
+html, body, #root, .App, main {
+  overflow-y: auto !important;
+  height: auto !important;
+  min-height: 100vh !important;
+}
+
+/* Ensure admin panel has proper height and scrolling */
+.admin-container,
+.admin-panel,
+[class*="admin"],
+[class*="Admin"],
+.dashboard,
+.content-wrapper,
+.page-wrapper {
+  overflow-y: auto !important;
+  min-height: 100vh !important;
+  height: auto !important;
+  max-height: none !important;
+}
+
+/* Fix for sticky headers in admin panel */
+.sticky-header {
+  position: sticky !important;
+  top: 0 !important;
+  z-index: 10 !important;
+  backdrop-filter: blur(12px) !important;
+}
+
+/* Ensure all content is scrollable */
+* {
+  max-height: none !important;
+}

@@ -59,86 +59,173 @@ export default function Dashboard() {
     fetchUsers();
   }, [fetchCounts, fetchUsers]);
 
+  // Detect theme from body class
+  const isDarkMode = document.body.classList.contains('dark');
+
   return (
     <div className="space-y-6">
 
       {/* ================= GRAND TOTAL ================= */}
-      <div className="bg-purple-100 p-4 rounded-xl shadow">
-        <div className="text-sm">Grand Total Notes</div>
-        <div className="text-2xl font-bold">
+      <div className={`
+        p-4 rounded-xl shadow transition-all duration-300
+        ${isDarkMode 
+          ? 'bg-gradient-to-r from-purple-900/80 to-purple-800/80 backdrop-blur-sm border border-purple-500/30' 
+          : 'bg-purple-100'
+        }
+      `}>
+        <div className={`text-sm ${isDarkMode ? 'text-purple-200' : 'text-gray-600'}`}>
+          Grand Total Notes
+        </div>
+        <div className={`text-2xl font-bold ${isDarkMode ? 'text-white' : 'text-gray-800'}`}>
           {countLoading ? "..." : counts?.grandTotal}
         </div>
       </div>
 
       {/* ================= SCHOOL NOTES ================= */}
-      <div className="grid grid-cols-4 gap-4">
-        <Stat title="School Total" value={countLoading ? "..." : counts?.schoolNotes?.total} bg="bg-blue-100"/>
-        <Stat title="School Published" value={countLoading ? "..." : counts?.schoolNotes?.published} bg="bg-green-100"/>
-        <Stat title="School Unpublished" value={countLoading ? "..." : counts?.schoolNotes?.unpublished} bg="bg-yellow-100"/>
-        <Stat title="School Deleted" value={countLoading ? "..." : counts?.schoolNotes?.deleted} bg="bg-red-100"/>
+      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
+        <Stat 
+          title="School Total" 
+          value={countLoading ? "..." : counts?.schoolNotes?.total} 
+          color="blue"
+          isDarkMode={isDarkMode}
+        />
+        <Stat 
+          title="School Published" 
+          value={countLoading ? "..." : counts?.schoolNotes?.published} 
+          color="green"
+          isDarkMode={isDarkMode}
+        />
+        <Stat 
+          title="School Unpublished" 
+          value={countLoading ? "..." : counts?.schoolNotes?.unpublished} 
+          color="yellow"
+          isDarkMode={isDarkMode}
+        />
+        <Stat 
+          title="School Deleted" 
+          value={countLoading ? "..." : counts?.schoolNotes?.deleted} 
+          color="red"
+          isDarkMode={isDarkMode}
+        />
       </div>
 
       {/* ================= TOPICS ================= */}
-      <div className="grid grid-cols-4 gap-4">
-        <Stat title="Topic Total" value={countLoading ? "..." : counts?.topics?.total} bg="bg-indigo-100"/>
-        <Stat title="Topic Published" value={countLoading ? "..." : counts?.topics?.published} bg="bg-green-100"/>
-        <Stat title="Topic Unpublished" value={countLoading ? "..." : counts?.topics?.unpublished} bg="bg-yellow-100"/>
-        <Stat title="Topic Deleted" value={countLoading ? "..." : counts?.topics?.deleted} bg="bg-red-100"/>
+      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
+        <Stat 
+          title="Topic Total" 
+          value={countLoading ? "..." : counts?.topics?.total} 
+          color="indigo"
+          isDarkMode={isDarkMode}
+        />
+        <Stat 
+          title="Topic Published" 
+          value={countLoading ? "..." : counts?.topics?.published} 
+          color="green"
+          isDarkMode={isDarkMode}
+        />
+        <Stat 
+          title="Topic Unpublished" 
+          value={countLoading ? "..." : counts?.topics?.unpublished} 
+          color="yellow"
+          isDarkMode={isDarkMode}
+        />
+        <Stat 
+          title="Topic Deleted" 
+          value={countLoading ? "..." : counts?.topics?.deleted} 
+          color="red"
+          isDarkMode={isDarkMode}
+        />
       </div>
 
       {/* ================= UNIVERSITY NOTES ================= */}
-      <div className="grid grid-cols-4 gap-4">
-        <Stat title="University Total" value={countLoading ? "..." : counts?.universityNotes?.total} bg="bg-pink-100"/>
-        <Stat title="University Published" value={countLoading ? "..." : counts?.universityNotes?.published} bg="bg-green-100"/>
-        <Stat title="University Unpublished" value={countLoading ? "..." : counts?.universityNotes?.unpublished} bg="bg-yellow-100"/>
-        <Stat title="University Deleted" value={countLoading ? "..." : counts?.universityNotes?.deleted} bg="bg-red-100"/>
+      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
+        <Stat 
+          title="University Total" 
+          value={countLoading ? "..." : counts?.universityNotes?.total} 
+          color="pink"
+          isDarkMode={isDarkMode}
+        />
+        <Stat 
+          title="University Published" 
+          value={countLoading ? "..." : counts?.universityNotes?.published} 
+          color="green"
+          isDarkMode={isDarkMode}
+        />
+        <Stat 
+          title="University Unpublished" 
+          value={countLoading ? "..." : counts?.universityNotes?.unpublished} 
+          color="yellow"
+          isDarkMode={isDarkMode}
+        />
+        <Stat 
+          title="University Deleted" 
+          value={countLoading ? "..." : counts?.universityNotes?.deleted} 
+          color="red"
+          isDarkMode={isDarkMode}
+        />
       </div>
 
       {/* ================= USERS TABLE ================= */}
-      <div className="bg-white/50 backdrop-blur rounded-xl p-4 shadow">
-        <h2 className="font-bold mb-3">Latest Users</h2>
+      <div className={`
+        backdrop-blur rounded-xl p-4 shadow transition-all duration-300
+        ${isDarkMode 
+          ? 'bg-gray-800/80 border border-gray-700' 
+          : 'bg-white/50'
+        }
+      `}>
+        <h2 className={`font-bold mb-3 ${isDarkMode ? 'text-white' : 'text-gray-800'}`}>
+          Latest Users
+        </h2>
 
         {userLoading ? (
-          <p>Loading users...</p>
+          <p className={isDarkMode ? 'text-gray-300' : 'text-gray-600'}>Loading users...</p>
         ) : (
-          <table className="w-full text-sm">
-            <thead className="border-b">
-              <tr>
-                <th className="text-left py-2">Name</th>
-                <th className="text-left py-2">Email</th>
-                <th className="text-left py-2">Created</th>
-                <th className="text-left py-2">Action</th>
-              </tr>
-            </thead>
-
-            <tbody>
-              {users.length === 0 ? (
+          <div className="overflow-x-auto">
+            <table className="w-full text-sm">
+              <thead className={`border-b ${isDarkMode ? 'border-gray-700' : 'border-gray-200'}`}>
                 <tr>
-                  <td colSpan="4" className="text-center py-4">
-                    No Users Found
-                  </td>
+                  <th className={`text-left py-2 ${isDarkMode ? 'text-gray-300' : 'text-gray-600'}`}>Name</th>
+                  <th className={`text-left py-2 ${isDarkMode ? 'text-gray-300' : 'text-gray-600'}`}>Email</th>
+                  <th className={`text-left py-2 ${isDarkMode ? 'text-gray-300' : 'text-gray-600'}`}>Created</th>
+                  <th className={`text-left py-2 ${isDarkMode ? 'text-gray-300' : 'text-gray-600'}`}>Action</th>
                 </tr>
-              ) : (
-                users.map((u) => (
-                  <tr key={u._id} className="border-b">
-                    <td className="py-2">{u.name}</td>
-                    <td className="py-2">{u.email}</td>
-                    <td className="py-2">
-                      {new Date(u.createdAt).toLocaleDateString()}
-                    </td>
-                    <td className="py-2">
-                      <button
-                        onClick={() => handleDelete(u._id)}
-                        className="bg-red-500 text-white px-3 py-1 rounded hover:bg-red-600"
-                      >
-                        Delete
-                      </button>
+              </thead>
+
+              <tbody>
+                {users.length === 0 ? (
+                  <tr>
+                    <td colSpan="4" className={`text-center py-4 ${isDarkMode ? 'text-gray-400' : 'text-gray-500'}`}>
+                      No Users Found
                     </td>
                   </tr>
-                ))
-              )}
-            </tbody>
-          </table>
+                ) : (
+                  users.map((u) => (
+                    <tr key={u._id} className={`border-b ${isDarkMode ? 'border-gray-700' : 'border-gray-100'}`}>
+                      <td className={`py-2 ${isDarkMode ? 'text-gray-200' : 'text-gray-700'}`}>{u.name}</td>
+                      <td className={`py-2 ${isDarkMode ? 'text-gray-200' : 'text-gray-700'}`}>{u.email}</td>
+                      <td className={`py-2 ${isDarkMode ? 'text-gray-200' : 'text-gray-700'}`}>
+                        {new Date(u.createdAt).toLocaleDateString()}
+                      </td>
+                      <td className="py-2">
+                        <button
+                          onClick={() => handleDelete(u._id)}
+                          className={`
+                            px-3 py-1 rounded transition-all duration-300
+                            ${isDarkMode 
+                              ? 'bg-red-600 hover:bg-red-700 text-white' 
+                              : 'bg-red-500 hover:bg-red-600 text-white'
+                            }
+                          `}
+                        >
+                          Delete
+                        </button>
+                      </td>
+                    </tr>
+                  ))
+                )}
+              </tbody>
+            </table>
+          </div>
         )}
       </div>
 
@@ -148,11 +235,73 @@ export default function Dashboard() {
 
 /* ================= STAT CARD ================= */
 
-function Stat({ title, value, bg }) {
+function Stat({ title, value, color, isDarkMode }) {
+  // Color mapping for light and dark modes
+  const colorClasses = {
+    blue: {
+      light: 'bg-blue-100',
+      dark: 'bg-blue-900/40 border border-blue-500/30',
+      textLight: 'text-gray-600',
+      textDark: 'text-blue-200',
+      valueLight: 'text-gray-800',
+      valueDark: 'text-white'
+    },
+    green: {
+      light: 'bg-green-100',
+      dark: 'bg-green-900/40 border border-green-500/30',
+      textLight: 'text-gray-600',
+      textDark: 'text-green-200',
+      valueLight: 'text-gray-800',
+      valueDark: 'text-white'
+    },
+    yellow: {
+      light: 'bg-yellow-100',
+      dark: 'bg-yellow-900/40 border border-yellow-500/30',
+      textLight: 'text-gray-600',
+      textDark: 'text-yellow-200',
+      valueLight: 'text-gray-800',
+      valueDark: 'text-white'
+    },
+    red: {
+      light: 'bg-red-100',
+      dark: 'bg-red-900/40 border border-red-500/30',
+      textLight: 'text-gray-600',
+      textDark: 'text-red-200',
+      valueLight: 'text-gray-800',
+      valueDark: 'text-white'
+    },
+    indigo: {
+      light: 'bg-indigo-100',
+      dark: 'bg-indigo-900/40 border border-indigo-500/30',
+      textLight: 'text-gray-600',
+      textDark: 'text-indigo-200',
+      valueLight: 'text-gray-800',
+      valueDark: 'text-white'
+    },
+    pink: {
+      light: 'bg-pink-100',
+      dark: 'bg-pink-900/40 border border-pink-500/30',
+      textLight: 'text-gray-600',
+      textDark: 'text-pink-200',
+      valueLight: 'text-gray-800',
+      valueDark: 'text-white'
+    }
+  };
+
+  const classes = colorClasses[color] || colorClasses.blue;
+  
   return (
-    <div className={`${bg} p-4 rounded-xl shadow`}>
-      <div className="text-sm">{title}</div>
-      <div className="text-xl font-bold">{value}</div>
+    <div className={`
+      p-4 rounded-xl shadow transition-all duration-300
+      ${isDarkMode ? classes.dark : classes.light}
+      hover:scale-105 transform transition-transform duration-300
+    `}>
+      <div className={`text-sm ${isDarkMode ? classes.textDark : classes.textLight}`}>
+        {title}
+      </div>
+      <div className={`text-xl font-bold ${isDarkMode ? classes.valueDark : classes.valueLight}`}>
+        {value}
+      </div>
     </div>
   );
 }

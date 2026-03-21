@@ -3,9 +3,10 @@ import { Link, useNavigate } from "react-router-dom";
 import NevLogo from "./NevLogo";
 import { isUser } from "../utils/auth";
 import useGetUserById from "../hooks/useGetUserById";
-
+import { useContext } from "react";
+import { ThemeContext } from "../context/ThemeContext";
 export default function Navbar() {
-
+   const { theme, toggleTheme } = useContext(ThemeContext);
   const [open, setOpen] = useState(false);
   const [searchQuery, setSearchQuery] = useState("");
   const [profileOpen, setProfileOpen] = useState(false);
@@ -16,11 +17,17 @@ export default function Navbar() {
   const { user } = useGetUserById();
   const isLoggedIn = isUser();
 
+  const menuRef = useRef(null);
+
   useEffect(() => {
     const handleClickOutside = (event) => {
       if (profileRef.current && !profileRef.current.contains(event.target)) {
         setProfileOpen(false);
       }
+       // mobile menu close
+    if (menuRef.current && !menuRef.current.contains(event.target)) {
+      setOpen(false);
+    }
     };
 
     document.addEventListener("mousedown", handleClickOutside);
@@ -28,7 +35,15 @@ export default function Navbar() {
     return () =>
       document.removeEventListener("mousedown", handleClickOutside);
 
-  }, []);
+  }, [open]);
+
+ useEffect(() => {
+  if (open) {
+    document.body.style.overflow = "hidden";
+  } else {
+    document.body.style.overflow = "";
+  }
+}, [open]);
 
   const handleSearch = (e) => {
     e.preventDefault();
@@ -56,10 +71,10 @@ export default function Navbar() {
   return (
     <nav className="fixed top-0 left-0 w-full bg-gradient-to-r from-blue-700 to-indigo-600 shadow-lg z-50">
 
-      <div className="w-full flex items-center justify-between h-[80px] px-4 md:px-6 lg:px-8">
+      <div className="w-full flex items-center justify-between h-[80px] px-4 md:px-6 lg:px-8 ">
 
         {/*================LEFT SIDE===================*/}
-        <div className="flex items-center gap-3">
+        <div className="flex items-center gap-2">
 
           {/*===========MOBILE BURGER==================*/}
           <button
@@ -72,7 +87,7 @@ export default function Navbar() {
           {/*=================LOGO=====================*/}
           <div className="flex items-center gap-2">
             <NevLogo />
-            <span className="text-white font-bold text-lg tracking-wide">
+            <span className="text-white font-semibold text-xx tracking-wide">
               StudyHub<span className="text-yellow-300">Note</span>
             </span>
           </div>
@@ -95,15 +110,25 @@ export default function Navbar() {
           </select>
 
           <Link to="/resources" className="hover:text-yellow-300">StudyResource</Link>
+          <Link to ="/UserNews" className="hover:text-yellow-300">News</Link>
 
         </div>
 
         {/*============================RIGHT SIDE===============================*/}
         <div className="flex items-center space-x-4">
 
+
+  <button
+    onClick={toggleTheme}
+    className="bg-yellow-300 text-black px-3 py-1 rounded-full font-semibold"
+  >
+    {theme === "light" ? "🌙" : "☀️"}
+  </button>
           {/*=========================SEARCH====================================*/}
           <form onSubmit={handleSearch} className="relative hidden md:block">
 
+
+  
             <input
               type="text"
               value={searchQuery}
@@ -123,10 +148,11 @@ export default function Navbar() {
 
             {!isLoggedIn ? (
 
-              <div className="flex items-center gap-3">
+              <div className="flex items-center gap-2">
 
                 <Link
                   to="/login"
+                  onClick={() => window.scrollTo(0, 0)}
                   className="bg-yellow-400 text-black px-3 py-1 rounded-full font-semibold hover:bg-yellow-300"
                 >
                   Login
@@ -134,6 +160,7 @@ export default function Navbar() {
 
                 <Link
                   to="/signup"
+                  onClick={() => window.scrollTo(0, 0)}
                   className="bg-yellow-400 text-black px-3 py-1 rounded-full font-semibold hover:bg-yellow-300"
                 >
                   Sign Up
@@ -148,7 +175,7 @@ export default function Navbar() {
                   onClick={() => setProfileOpen(!profileOpen)}
                   className="flex items-center space-x-2"
                 >
-                  <div className="w-10 h-10 rounded-full bg-gradient-to-r from-purple-400 to-pink-400 flex items-center justify-center text-white font-bold">
+                  <div id="Profile" className="w-10 h-10 rounded-full bg-gradient-to-r from-purple-400 to-pink-400 flex items-center justify-center text-white font-bold">
                     {user?.name?.charAt(0).toUpperCase() || "U"}
                   </div>
 
@@ -164,7 +191,9 @@ export default function Navbar() {
 
                     <Link
                       to="/userProfile"
-                      onClick={() => setProfileOpen(false)}
+                      onClick={() => {setProfileOpen(false);
+                        window.scrollTo(0, 0);
+                      }}
                       className="block px-4 py-2 text-sm hover:bg-blue-50"
                     >
                       👤 View Profile
@@ -172,7 +201,9 @@ export default function Navbar() {
 
                     <Link
                       to="/userSettings"
-                      onClick={() => setProfileOpen(false)}
+                      onClick={() => {setProfileOpen(false);
+                        window.scrollTo(0, 0);
+                      }}
                       className="block px-4 py-2 text-sm hover:bg-blue-50"
                     >
                       ⚙️ Settings
@@ -202,27 +233,65 @@ export default function Navbar() {
 
       {/*=====================MOBILE MENU===============================*/}
       {open && (
-        <div className="md:hidden bg-blue-700 text-white px-6 py-4 space-y-4">
 
-          <Link
-            to="/"
-            onClick={() => setOpen(false)}
-            className="block hover:text-yellow-300"
-          >
-            Home
-          </Link>
+      <div
+  ref={menuRef}
+  className={`md:hidden fixed  left-0 w-full bg-blue-500 text-white z-50 shadow-lg transform transition-transform duration-300 ${
+    open ? "translate-y-0" : "-translate-y-full"
+  }`}
+>
+  <div className="p-6 flex flex-col space-y-6">
+    {/* Home Link */}
+    <Link
+      to="/"
+      onClick={() => {
+        setOpen(false);
+        window.scrollTo(0, 0);
+      }}
+      className="block px-4 py-2 rounded hover:bg-yellow-300 hover:text-blue-800 transition-colors duration-200 font-medium"
+    >
+      Home
+    </Link>
 
-          <select
-            onChange={handleChange}
-            className="bg-blue-600 p-2 rounded w-full"
-          >
-            <option value="">Notes</option>
-            <option value="/school">School</option>
-            <option value="/college">University</option>
-            <option value="/Itcourse">ItCourse</option>
-          </select>
-          <Link to="/resources" className="hover:text-yellow-300">StudyResource</Link>
-        </div>
+    {/* Notes Dropdown */}
+    <select
+      onChange={(e) => {
+        handleChange(e);
+        window.scrollTo(0, 0);
+      }}
+      className="bg-blue-500 px-4 py-2 rounded w-full text-white focus:outline-none focus:ring-2 focus:ring-yellow-300"
+    >
+      <option value="">Notes</option>
+      <option value="/school">School</option>
+      <option value="/college">University</option>
+      <option value="/Itcourse">ItCourse</option>
+    </select>
+
+    {/* Study Resource Link */}
+    <Link
+      to="/resources"
+      onClick={() => {
+        setOpen(false);
+        window.scrollTo(0, 0);
+      }}
+      className="block px-4 py-2 rounded hover:bg-yellow-300 hover:text-blue-800 transition-colors duration-200 font-medium"
+    >
+      Study Resource
+    </Link>
+
+    {/* News Link */}
+    <Link
+      to="/UserNews"
+      onClick={() => {
+        setOpen(false);
+        window.scrollTo(0, 0);
+      }}
+      className="block px-4 py-2 rounded hover:bg-yellow-300 hover:text-blue-800 transition-colors duration-200 font-medium"
+    >
+      News
+    </Link>
+  </div>
+</div>
       )}
 
     </nav>

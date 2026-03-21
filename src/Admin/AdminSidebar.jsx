@@ -1,10 +1,10 @@
 import { NavLink } from "react-router-dom";
 import { useState } from "react";
-
+import { useContext } from "react";
+import { ThemeContext } from "../context/ThemeContext";
 export default function AdminSidebar({ open, setOpen }) {
 
-  const [darkMode, setDarkMode] = useState(false);
-
+   const { theme, toggleTheme } = useContext(ThemeContext);
   const toggleDarkMode = () => {
 
      const html = document.documentElement;
@@ -131,13 +131,13 @@ export default function AdminSidebar({ open, setOpen }) {
             <span>Dark Mode</span>
 
             <button
-              onClick={toggleDarkMode}
+                onClick={toggleTheme}
               className={`w-12 h-6 flex items-center rounded-full p-1 transition
-              ${darkMode ? "bg-blue-600" : "bg-gray-400"}`}
+              ${toggleTheme ? "bg-blue-600" : "bg-gray-400"}`}
             >
               <div
                 className={`bg-white w-4 h-4 rounded-full shadow transform transition
-                ${darkMode ? "translate-x-6" : "translate-x-0"}`}
+                ${toggleTheme ? "translate-x-6" : "translate-x-0"}`}
               />
             </button>
           </div>

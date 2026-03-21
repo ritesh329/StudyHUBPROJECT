@@ -7,66 +7,86 @@ export default function CreateBoardWithClass() {
   const [loading, setLoading] = useState(false);
   const [msg, setMsg] = useState("");
 
-  const handleSubmit = async (e) => {
-    e.preventDefault();
+const handleSubmit = async (e) => {
+  e.preventDefault();
 
-    if (!boardName.trim() || !className.trim()) {
-      setMsg("Board and Class both required");
+  if (!boardName.trim() || !className.trim()) {
+    setMsg("Board and Class both required");
+    return;
+  }
+
+  try {
+    setLoading(true);
+
+    const token = localStorage.getItem("token");
+    if (!token) {
+      setMsg("Please login first");
       return;
     }
 
+    let boardId;
+
+    // ✅ Step 1 — Try create board
     try {
-      setLoading(true);
-
-      // ✅ get token
-      const token = localStorage.getItem("token");
-
-      if (!token) {
-        setMsg("Please login first");
-        return;
-      }
-
-      // ✅ Step 1 — Create Board
       const boardRes = await axios.post(
         "https://studyhubapi-e2lb.onrender.com/api/boards/boards",
         { name: boardName.trim() },
         {
-          headers: {
-            Authorization: `Bearer ${token}`,
-          },
+          headers: { Authorization: `Bearer ${token}` },
         }
       );
 
-      const boardId =
+      boardId =
         boardRes.data.data?._id ||
         boardRes.data.board?._id ||
         boardRes.data._id;
 
-      if (!boardId) {
-        throw new Error("Board ID not returned");
-      }
-
-      // ✅ Step 2 — Create Class
-      await axios.post(
-        `https://studyhubapi-e2lb.onrender.com/api/boards/boards/${boardId}/classes`,
-        { className: className.trim() },
-        {
-          headers: {
-            Authorization: `Bearer ${token}`,
-          },
-        }
-      );
-
-      setMsg("Create Board & Class successfully");
-      setBoardName("");
-      setClassName("");
-
     } catch (err) {
-      setMsg(err.response?.data?.message || err.message || "Error");
-    } finally {
-      setLoading(false);
+      // 🔥 अगर board already exist है
+      if (err.response?.data?.message === "Board already exists") {
+        
+        // 👉 existing boards fetch करो
+        const res = await axios.get(
+          "https://studyhubapi-e2lb.onrender.com/api/boards/boards",
+          {
+            headers: { Authorization: `Bearer ${token}` },
+          }
+        );
+
+        const foundBoard = res.data.data.find(
+          (b) =>
+            b.name.toLowerCase() === boardName.trim().toLowerCase()
+        );
+
+        if (!foundBoard) {
+          throw new Error("Board exists but not found in list");
+        }
+
+        boardId = foundBoard._id;
+      } else {
+        throw err;
+      }
     }
-  };
+
+    // ✅ Step 2 — Create Class (always run)
+    await axios.post(
+      `https://studyhubapi-e2lb.onrender.com/api/boards/boards/${boardId}/classes`,
+      { className: className.trim() },
+      {
+        headers: { Authorization: `Bearer ${token}` },
+      }
+    );
+
+    setMsg("Board & Class created successfully");
+    setBoardName("");
+    setClassName("");
+
+  } catch (err) {
+    setMsg(err.response?.data?.message || err.message || "Error");
+  } finally {
+    setLoading(false);
+  }
+};
 
   return (
     <form

@@ -1,6 +1,8 @@
 import React, { useState ,  useEffect} from "react";
 import useSignup from "../../hooks/useSignup";
 import { useNavigate } from "react-router-dom";
+import { Link } from "react-router-dom";
+import { FaGoogle, FaFacebookF, FaInstagram } from "react-icons/fa";
 
 const Signup = () => {
   const { signup, loading, error, success } = useSignup();
@@ -30,46 +32,44 @@ const Signup = () => {
   };
 
   return (
-
-    <div style={{ maxWidth: "400px", margin: "50px auto" }}
-    className="bg-white/60 m-6 p-6 rounded shadow">
-      <h2 className="text-2xl font-bold mb-4 text-center">Signup</h2>
-
+    <div className="min-h-screen flex items-center justify-center px-4 sm:px-6 bg-gradient-to-r from-blue-600 via-purple-600 to-pink-500">
+    <div className="w-full max-w-sm sm:max-w-md backdrop-blur-lg bg-white/20 border border-white/30 p-6 sm:p-8 rounded-2xl shadow-2xl">
+              <h2 className="text-2xl sm:text-3xl font-bold text-center text-white mb-2">
+          Create your Account 
+        </h2>
+        <p className="text-center text-gray-200 mb-6 text-sm sm:text-base">
+          Please fill in the details 
+        </p>
+  <hr className="flex-1 00 p-4"/>
       <form onSubmit={handleSubmit}
       className="flex flex-col gap-4  ">
-            <label className="block text-gray-600 text-sm mb-1">
-              Name
-            </label>
+        {/*==========================name=================================*/}
         <input
           name="name"
           placeholder="Name"
           value={formData.name}
           onChange={handleChange}
+          className="w-full px-4 py-3 rounded-lg bg-white/30 text-white placeholder-gray-200 outline-none focus:ring-2 focus:ring-white text-sm sm:text-base"
           required
         />
-
-
-            <label className="block text-gray-600 text-sm mb-1">
-              Email / Mobile No.
-            </label>
+        {/*==========================email=================================*/}
         <input
           name="email"
           type="email"
           placeholder="Email/mobile no."
           value={formData.email}
           onChange={handleChange}
+          className="w-full px-4 py-3 rounded-lg bg-white/30 text-white placeholder-gray-200 outline-none focus:ring-2 focus:ring-white text-sm sm:text-base"
           required
         />
-
-            <label className="block text-gray-600 text-sm mb-1">
-              Password
-            </label>
+        {/*==========================password=================================*/}
         <input
           name="password"
           type="password"
           placeholder="Password"
           value={formData.password}
           onChange={handleChange}
+          className="w-full px-4 py-3 rounded-lg bg-white/30 text-white placeholder-gray-200 outline-none focus:ring-2 focus:ring-white text-sm sm:text-base"
           required
         />
 
@@ -78,27 +78,41 @@ const Signup = () => {
         <button 
          className="bg-blue-700 rounded-2xl h-8  max-w w-full text-white font-semibold hover:bg-green-700 "
         type="submit" disabled={loading}>
-          {loading ? "Signing up..." : "Signup"}
+          {loading ? "Signing up..." : "Sign up"}
         </button>
 
       </form>
         {/* Divider */}
   <div className="flex items-center gap-3 my-5">
-    <hr className="flex-1 border-gray-500"/>
-    <span className="text-gray-500 text-sm">or</span>
-    <hr className="flex-1 border-gray-500"/>
+    <hr className="flex-1 "/>
+    <span className=" text-sm">or</span>
+    <hr className="flex-1 "/>
   </div>
 
-        {/* Google Signup Button */}
-      <button
-        className="bg-green-600 rounded-2xl h-8  max-w w-full text-white font-semibold hover:bg-red-600"
-        onClick={() => alert("Google Signup not implemented yet")}
-      >
-        Sign up with Google
-      </button>
-
-      {error && <p style={{ color: "red" }}>{error}</p>}
-      {success && <p style={{ color: "green" }}>Signup Successful 🎉</p>}
+        {/* Social Icons */}
+             <div className="flex justify-center gap-4 mb-4">
+               <button className="bg-white p-2 sm:p-3 rounded-full hover:scale-110 transition shadow">
+                 <FaGoogle className="text-red-500 text-base sm:text-lg" />
+               </button>
+     
+               <button className="bg-white p-2 sm:p-3 rounded-full hover:scale-110 transition shadow">
+                 <FaFacebookF className="text-blue-600 text-base sm:text-lg" />
+               </button>
+     
+               <button className="bg-white p-2 sm:p-3 rounded-full hover:scale-110 transition shadow">
+                 <FaInstagram className="text-pink-600 text-base sm:text-lg" />
+               </button>
+             </div>
+     
+     
+     
+               <p className="text-center text-gray-200 text-xs sm:text-sm">
+                 Don't have an account?{" "}
+                 <Link to="/login" className="text-black font-semibold ml-1 hover:underline">
+                   Login
+                 </Link>
+               </p>
+    </div>
     </div>
   );
 };

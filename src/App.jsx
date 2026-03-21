@@ -4,6 +4,8 @@ import Layout from "./Component/Layout";
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 // UI pages
+import useOnlineStatus from "./hooks/useOnlineStatus";
+import OfflineShow from "./Component/pages/OfflineShow"
 import SchoolEducationUI from "./Component/pages/SchoolEducation";
 import UniversityEducationUI from "./Component/pages/UniversityEducationUI";
 import StudyResourcesUI from "./Component/pages/StudyResourcesUI";
@@ -42,7 +44,15 @@ import AdminDeletePanel from "./Admin/AdminDeletePanel";
 // ================= NEWS ADMIN =================
 import AdminManageNews from "./Admin/AdminManageNews";
 import AdminAddNews from "./Admin/AdminAddNews";
+import UserNews from "./Component/pages/UserNews";
 export default function App() {
+
+
+     const isOnline = useOnlineStatus();
+
+  if (!isOnline) {
+    return <OfflineShow />; // 🔥 internet nahi → ye page
+  }
   return (
     <>
     <Routes>
@@ -53,7 +63,7 @@ export default function App() {
         <Route path="signup" element={<Signup />} />
         <Route path="login" element={<Login />} />
         <Route path="school" element={<SchoolEducationUI />} />
-
+           <Route path="UserNews" element={<UserNews />}/>
         <Route path="subjects/:board/:cls" element={<SubjectNewPage />} />
         <Route path="college" element={<UniversityEducationUI />} />
         <Route
