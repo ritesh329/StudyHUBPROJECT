@@ -1,6 +1,7 @@
 import { useParams } from "react-router-dom";
 import { useState, useEffect } from "react";
 import axios from "axios";
+import { useLoader } from "../../context/LoaderContext";
 
 export default function ClassSubjects() {
   const { board, cls } = useParams();
@@ -8,7 +9,7 @@ export default function ClassSubjects() {
   const [blogs, setBlogs] = useState([]);
   const [subjects, setSubjects] = useState([]);
   const [activeSubject, setActiveSubject] = useState("");
-  const [loading, setLoading] = useState(false);
+ const { setLoading, loading } = useLoader();
 
   useEffect(() => {
     const fetchSchoolNotes = async () => {
@@ -61,6 +62,11 @@ export default function ClassSubjects() {
 
   return (
     <div className="min-h-screen ">
+      {loading && (
+  <div className="text-center py-10">
+    <p className="text-gray-500">Loading content...</p>
+  </div>
+)}
       <div className="bg-white/90 sticky top-[80px] z-20 shadow ">
         <div className="max-w mx-auto flex overflow-x-auto">
           {subjects.map((subject) => (
@@ -85,15 +91,14 @@ export default function ClassSubjects() {
           {activeSubject || "Select Subject"}
         </h2>
 
-        {loading && <p>Loading content...</p>}
 
-        {!loading && filteredBlogs.length === 0 && (
+        {filteredBlogs.length === 0 && (
           <p className="text-gray-600">
             No content available for this subject
           </p>
         )}
 
-        {!loading &&
+        {
           filteredBlogs.map((blog) => (
             <div key={blog._id} className="mb-6">
               <h3 className="text-lg font-semibold mb-2">

@@ -1,6 +1,7 @@
 import { useParams } from "react-router-dom";
 import { useState, useEffect } from "react";
 import axios from "axios";
+import { useLoader } from "../../context/LoaderContext";
 
 export default function UniversitySubjectContent() {
   const { university, courseType, department, semester } = useParams();
@@ -8,8 +9,7 @@ export default function UniversitySubjectContent() {
   const [blogs, setBlogs] = useState([]);
   const [subjects, setSubjects] = useState([]);
   const [activeSubject, setActiveSubject] = useState("");
-  const [loading, setLoading] = useState(false);
-
+ const { setLoading, loading} = useLoader();
   /* =========================
      FETCH UNIVERSITY NOTES
   ========================= */
@@ -78,6 +78,11 @@ export default function UniversitySubjectContent() {
 
   return (
     <div className="min-h-screen">
+{loading && (
+  <div className="text-center py-10 bg-white/60">
+    <p className="text-gray-500">Loading content...</p>
+  </div>
+)}
       {/* SUBJECT SUB-NAVBAR */}
       <div className="bg-white sticky top-[80px] z-40 shadow">
         <div className="max-w-5xl mx-auto flex overflow-x-auto">
@@ -100,13 +105,12 @@ export default function UniversitySubjectContent() {
 
       {/* SUBJECT CONTENT */}
       <div className="max-w mx-auto mt-6 px-4  ">
-        {loading && <p>Loading content...</p>}
 
-        {!loading && filteredBlogs.length === 0 && (
+        { filteredBlogs.length === 0 && (
           <p className="text-gray-500">No content available</p>
         )}
 
-        {!loading &&
+        {
           filteredBlogs.map((blog) => (
             <div
               key={blog._id}

@@ -1,6 +1,8 @@
 import React from "react";
 import { useNavigate } from "react-router-dom";
 
+
+
 const categories = [
   {
     title: "School Education",
@@ -54,23 +56,32 @@ const categories = [
 ];
 
 export default function StudyCategories() {
+  
   const navigate = useNavigate();
+    const handleClick = (path) => {
+    navigate(path);
 
+    // scroll fix (important)
+    setTimeout(() => {
+      window.scrollTo(0, 0);
+    }, 0);
+  };
   return (
-    <section className=" py-14 px-4 bg-cover ">
+    <section  className=" py-14 px-4 bg-cover ">
       <div className="max-w-7xl mx-auto">
 
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
           {categories.map((cat, i) => (
             <div
               key={i}
-              onClick={() => navigate(cat.path)}
+              onClick={() => handleClick(cat.path)}
+
               className="bg-white/70  p-6 rounded-xl shadow cursor-pointer hover:shadow-lg"
             >
               <div className="text-4xl">{cat.icon}</div>
               <h3 className="mt-2 font-semibold">{cat.title}</h3>
               <p className="text-sm text-gray-700">{cat.desc}</p>
-              <span className="text-blue-700 mt-2 inline-block">
+              <span  className="text-blue-700 mt-2 inline-block">
                 Explore →
               </span>
             </div>

@@ -1,3 +1,10 @@
+import React from "react";
+import { FaFacebookF } from "react-icons/fa";
+import { FaTwitter } from "react-icons/fa";
+import { FaLinkedin } from "react-icons/fa";
+import { FaInstagram } from "react-icons/fa";
+
+
 export default function Footer() {
   return (
     <footer className="bg-black/70 text-gray-300 h-90 ">
@@ -9,7 +16,7 @@ export default function Footer() {
           {/* Brand */}
           <div>
             <h2 className="text-3xl font-extrabold text-white tracking-wide">
-              StudyHub<span className="text-emerald-400">Notes</span>
+              StudyHub<span className="text-emerald-400">Note</span>
             </h2>
             <p className="mt-4 text-lg leading-relaxed text-gray-400">
               A modern learning platform for School, College,
@@ -77,38 +84,62 @@ export default function Footer() {
 
               <div className="flex gap-3">
                 <span>✉️</span>
-                <p>aksky7km@example.com</p>
+                <p>+91-723......122</p>
               </div>
 
               <div className="flex gap-3">
                 <span>📞</span>
-                <p>+91-723......122</p>
+                
+                <p>aksky7km@example.com</p>
               </div>
             </div>
 
           </div>
 
         </div>
-         {/* Social Icons */}
-         <div className="border-t border-white/10 py-2 h-5">
-        <div className="flex justify-center gap-4">
-          {["f", "X", "in", "✈", "▶", "📷"].map((icon, i) => (
-            <span
-              key={i}
-              className="w-9 h-9 flex items-center justify-center
-                         rounded-full bg-white/10
-                         hover:bg-emerald-400 hover:text-black
-                         transition cursor-pointer"
-            >
-              {icon}
-            </span>
-          ))}
-        </div>
-      </div>
+
+
+
+
+
+
+
+        {/* Social Icons */}
+<div className="border-t border-white/10 py-2 h-5">
+  <div className="flex justify-center gap-4">
+    {[
+      { icon:<FaFacebookF />, link: "https://www.facebook.com" },  
+      { icon: <FaTwitter />, link: "https://www.x.com" },
+      { icon: <FaLinkedin />, link: "https://www.linkedin.com" },
+      { icon: <FaInstagram />, link: "https://www.instagram.com/aarivotech" }
+    ].map((item, i) => (
+      <a
+        key={i}
+        href={item.link}
+        target="_blank"
+        rel="noopener noreferrer"
+        className="w-9 h-9 flex items-center justify-center
+                   rounded-full bg-white/20 text-pink-500
+                   hover:bg-emerald-400 hover:text-black
+                   transition cursor-pointer"
+      >
+        {item.icon}
+      </a>
+    ))}
+  </div>
+</div>
+
+
+
+
+
+
+
+    
 
         {/* Bottom */}
         <div className="border-t border-white/10 mt-10 pt-4 text-center text-lg text-gray-500 h-6">
-          © {new Date().getFullYear()} StudyHubNotes. All Rights Reserved.
+          © {new Date().getFullYear()} StudyHubNote. All Rights Reserved.
         </div>
         
 

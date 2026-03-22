@@ -1,17 +1,21 @@
+
 import { Routes, Route } from "react-router-dom";
+import useOnlineStatus from "./hooks/useOnlineStatus";
+import OfflineShow from "./Component/pages/OfflineShow"
+import {LoaderProvider} from "./context/LoaderContext";
+import GlobalLoader from "./Component/GlobalLoader";
 import Home from "./Component/Home";
 import Layout from "./Component/Layout";
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 // UI pages
-import useOnlineStatus from "./hooks/useOnlineStatus";
-import OfflineShow from "./Component/pages/OfflineShow"
 import SchoolEducationUI from "./Component/pages/SchoolEducation";
 import UniversityEducationUI from "./Component/pages/UniversityEducationUI";
 import StudyResourcesUI from "./Component/pages/StudyResourcesUI";
 import ITCourse from "./Component/pages/ITCourse";
 import SubjectNewPage from "./Component/pages/SchoolCreatePage";
 import UniverasitySubjectContent from "./Component/pages/UniverasitySubjectContent";
+import UserNews from "./Component/pages/UserNews";
 import Signup from "./Component/pages/SignUp";
 import Login from "./Component/pages/Login";
 // user profile and setting
@@ -44,17 +48,16 @@ import AdminDeletePanel from "./Admin/AdminDeletePanel";
 // ================= NEWS ADMIN =================
 import AdminManageNews from "./Admin/AdminManageNews";
 import AdminAddNews from "./Admin/AdminAddNews";
-import UserNews from "./Component/pages/UserNews";
+
 export default function App() {
-
-
-     const isOnline = useOnlineStatus();
+   const isOnline = useOnlineStatus();
 
   if (!isOnline) {
     return <OfflineShow />; // 🔥 internet nahi → ye page
   }
   return (
-    <>
+    <LoaderProvider>
+      <GlobalLoader />
     <Routes>
 
       {/* ================= USER ROUTES ================= */}
@@ -63,7 +66,8 @@ export default function App() {
         <Route path="signup" element={<Signup />} />
         <Route path="login" element={<Login />} />
         <Route path="school" element={<SchoolEducationUI />} />
-           <Route path="UserNews" element={<UserNews />}/>
+        <Route path="UserNews" element={<UserNews />}/>
+
         <Route path="subjects/:board/:cls" element={<SubjectNewPage />} />
         <Route path="college" element={<UniversityEducationUI />} />
         <Route
@@ -128,7 +132,8 @@ export default function App() {
         pauseOnHover
         theme="colored"
       />
-      </>
+      </LoaderProvider>
+
     
   );
 }

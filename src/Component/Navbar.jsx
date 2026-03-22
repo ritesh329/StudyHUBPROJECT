@@ -3,10 +3,9 @@ import { Link, useNavigate } from "react-router-dom";
 import NevLogo from "./NevLogo";
 import { isUser } from "../utils/auth";
 import useGetUserById from "../hooks/useGetUserById";
-import { useContext } from "react";
-import { ThemeContext } from "../context/ThemeContext";
+
 export default function Navbar() {
-   const { theme, toggleTheme } = useContext(ThemeContext);
+
   const [open, setOpen] = useState(false);
   const [searchQuery, setSearchQuery] = useState("");
   const [profileOpen, setProfileOpen] = useState(false);
@@ -117,18 +116,9 @@ export default function Navbar() {
         {/*============================RIGHT SIDE===============================*/}
         <div className="flex items-center space-x-4">
 
-
-  <button
-    onClick={toggleTheme}
-    className="bg-yellow-300 text-black px-3 py-1 rounded-full font-semibold"
-  >
-    {theme === "light" ? "🌙" : "☀️"}
-  </button>
           {/*=========================SEARCH====================================*/}
           <form onSubmit={handleSearch} className="relative hidden md:block">
 
-
-  
             <input
               type="text"
               value={searchQuery}
@@ -194,7 +184,7 @@ export default function Navbar() {
                       onClick={() => {setProfileOpen(false);
                         window.scrollTo(0, 0);
                       }}
-                      className="block px-4 py-2 text-sm hover:bg-blue-50"
+                      className="block px-4 py-2 text-black text-sm hover:bg-blue-50"
                     >
                       👤 View Profile
                     </Link>
@@ -204,7 +194,7 @@ export default function Navbar() {
                       onClick={() => {setProfileOpen(false);
                         window.scrollTo(0, 0);
                       }}
-                      className="block px-4 py-2 text-sm hover:bg-blue-50"
+                      className="block px-4 py-2 text-black text-sm hover:bg-blue-50"
                     >
                       ⚙️ Settings
                     </Link>
